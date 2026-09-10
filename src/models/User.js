@@ -1,0 +1,3 @@
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({ name:{type:String,required:true,trim:true,maxLength:80}, email:{type:String,required:true,unique:true,lowercase:true,trim:true,index:true}, passwordHash:{type:String,required:true}, avatarUrl:String, settings:{theme:{type:String,enum:['light','dark','system'],default:'system'},defaultTaskDuration:{type:Number,default:30},defaultReminder:{type:Number,default:15},weekStart:{type:Number,default:1},workingHours:{start:{type:String,default:'09:00'},end:{type:String,default:'18:00'}},notifications:{inApp:{type:Boolean,default:true},email:{type:Boolean,default:false}}}}, {timestamps:true});
+module.exports = mongoose.model('User', schema);
