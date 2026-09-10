@@ -1,0 +1,3 @@
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({owner:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},title:{type:String,required:true,trim:true,maxLength:160},description:{type:String,maxLength:3000},category:{type:String,default:'Career',trim:true},targetDate:Date,progress:{type:Number,min:0,max:100,default:0},status:{type:String,enum:['active','completed','paused','cancelled'],default:'active'},priority:{type:String,enum:['critical','high','medium','low'],default:'high'},notes:String},{timestamps:true});
+module.exports = mongoose.model('Goal', schema);
