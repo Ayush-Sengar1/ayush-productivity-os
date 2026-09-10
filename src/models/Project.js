@@ -1,0 +1,3 @@
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({owner:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},name:{type:String,required:true,trim:true,maxLength:120},description:{type:String,maxLength:2000},color:{type:String,default:'#526dff'},icon:{type:String,default:'folder'},startDate:Date,deadline:Date,status:{type:String,enum:['planning','active','on_hold','completed','archived'],default:'active'},priority:{type:String,enum:['critical','high','medium','low'],default:'medium'},notes:String},{timestamps:true});
+module.exports = mongoose.model('Project', schema);
