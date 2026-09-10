@@ -1,0 +1,2 @@
+const mongoose = require('mongoose');
+const schema = new mongoose.Schema({owner:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true,index:true},title:{type:String,required:true,trim:true,maxLength:180},content:{type:String,maxLength:10000},tags:[String],task:{type:mongoose.Schema.Types.ObjectId,ref:'Task'},project:{type:mongoose.Schema.Types.ObjectId,ref:'Project'},goal:{type:mongoose.Schema.Types.ObjectId,ref:'Goal'}},{timestamps:true}); module.exports = mongoose.model('Note', schema);
