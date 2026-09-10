@@ -1,0 +1,6 @@
+const Habit=require('../models/Habit');const HabitLog=require('../models/HabitLog');const {state}=require('../config/database');const {store,withBase}=require('../data/memoryStore');
+async function list(owner){if(state.connected)return Habit.find({owner,active:true}).lean();return store.habits.filter(x=>x.owner===owner&&x.active!==false)}
+async function create(owner,data){if(state.connected)return Habit.create({...data,owner});const h=withBase({...data,owner});store.habits.push(h);return h}
+async function logs(owner,habitId){if(state.connected)return HabitLog.find({owner,habit:habitId}).sort({date:-1}).lean();return store.habitLogs.filter(x=>x.owner===owner&&x.habit===habitId).sort((a,b)=>new Date(b.date)-new Date(a.date))}
+async function log(owner,habitId,date){const day=new Date(date);day.setHours(0,0,0,0);if(state.connected)return HabitLog.findOneAndUpdate({owner,habit:habitId,date:day},{owner,habit:habitId,date:day,completed:true},{upsert:true,new:true}).lean();let x=store.habitLogs.find(l=>l.owner===owner&&l.habit===habitId&&new Date(l.date).getTime()===day.getTime());if(!x){x=withBase({owner,habit:habitId,date:day,completed:true});store.habitLogs.push(x)}return x}
+module.exports={list,create,logs,log};
