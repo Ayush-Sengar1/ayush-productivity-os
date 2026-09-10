@@ -1,0 +1,1 @@
+const router=require('express').Router();const c=require('../controllers/authController');router.get('/login',c.loginPage);router.get('/register',c.registerPage);router.post('/register',c.registerValidators,c.register);router.post('/login',c.login);router.post('/logout',c.logout);module.exports=router;
